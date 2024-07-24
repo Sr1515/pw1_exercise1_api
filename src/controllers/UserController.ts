@@ -27,14 +27,14 @@ class UserController {
 
     getUserTechnologies(request: Request, response: Response) {
         const database = new UserDatabase(data)
-        const { username } : { username: string} = request.headers as { username: string}
+        const  username : string = request.body.user.username
         const technologies = database.getUserTechnologies(username)
         return response.json(technologies)
     }
 
     createTechnology(request: Request, response: Response) {
         const database = new UserDatabase(data)
-        const { username} : { username: string } = request.headers as { username: string}
+        const  username : string = request.body.user.username
         const { title, deadline} : { title: string, deadline: string} = request.body
 
         if(new Date(deadline) < new Date()) {
@@ -55,7 +55,7 @@ class UserController {
 
     updateTechnology(request: Request, response: Response) {
         const database = new UserDatabase(data)
-        const { username } : { username: string } = request.headers as { username: string } 
+        const  username : string = request.body.user.username
         const { title, deadline } : { title: string, deadline: string } = request.body
         const { id }: { id: string } = request.params as { id : string }
 
@@ -82,7 +82,7 @@ class UserController {
  
     updateTechnologyState(request: Request, response: Response) {
         const database = new UserDatabase(data)
-        const { username } : { username: string } = request.headers as { username: string } 
+        const  username : string = request.body.user.username 
         const { id }: { id: string } = request.params as { id : string }
 
         const getTechnology = database.getTechnology(username, id)
@@ -103,7 +103,7 @@ class UserController {
 
     deleteTechnology(request: Request, response: Response){
         const database = new UserDatabase(data)
-        const { username } : { username: string } = request.headers as { username: string } 
+        const  username : string = request.body.user.username 
         const { id }: { id: string } = request.params as { id : string }
 
         if(!database.getTechnology(username, id)){
